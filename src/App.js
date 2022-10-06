@@ -4,13 +4,19 @@ import NoteRowFlats from './components/NoteRowFlats';
 import React, {useState} from 'react';
 import scales from './scales.json'
 import Scale from './components/Scale.js';
+import RenderedScale from './components/RenderedScale';
+
 function App () {
   const scaleObj = scales;
-  
   const [mainArr, changeArray] = useState([]);
   const [returnedScales, updateReturnedScales] = useState([]);
+  const [clickedScale, clickedScaleChanged] = useState([]);
 
-  const renderedScales = returnedScales.map(scale => (<Scale scale = {scale}/>));
+  const scaleClickedHandler = (scale) => {
+    clickedScaleChanged(scale);
+  }
+
+  const renderedScales = returnedScales.map(scale => (<Scale onScaleClicked={scaleClickedHandler} scale = {scale}/>));
 
   const noteChangeHandler = (note) => {
     if(!mainArr.includes(note)){
@@ -35,11 +41,11 @@ function App () {
       <NoteRowFlats onNoteChange = {noteChangeHandler} />
       <NoteRow onNoteChange = {noteChangeHandler} />
       <p></p>
+      <RenderedScale scale = {clickedScale}/> 
       <div>{renderedScales}</div>
     </div>
   );
 }
-
 const checkScales = (arrayToCheck, scaleObj) => {
   ///check if notes are in scale and return a list of scales
   let listOfReturnedScales = [];

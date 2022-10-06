@@ -1,15 +1,15 @@
-import './Scale.css'
+import './Scale.css';
+import RenderedScale from './RenderedScale';
+import { useState } from 'react';
 
 const Scale = (props) => {
 
-    const scaleClickHandler = () =>{
-        console.log(props.scale + "clicked");
+    const scaleChangeHandler = () =>{
+        props.onScaleClicked(props.scale);
     }
-
-    return (
-        <div>
-            <div onClick={scaleClickHandler} className={"scaleText"} >{props.scale}</div>
-        </div>
-        );
+    return(
+        <div onClick={scaleChangeHandler} className={"scaleText"}>{props.scale}</div>
+    );
 }
+
 export default Scale;
